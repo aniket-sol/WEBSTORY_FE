@@ -92,24 +92,24 @@ const StoryModal = ({ story, onClose, onLoginSuccess }) => {
 
     try {
       if (!liked[currentSlideIndex]) {
-        const currLikes = await likeStory(storyId, index);
         setLiked((prevLiked) => {
           const updatedLiked = [...prevLiked];
           updatedLiked[index] = true;
           return updatedLiked;
         });
+        const currLikes = await likeStory(storyId, index);
         setLikesCount((prevLikesCount) => {
           const updatedLikesCount = [...prevLikesCount];
           updatedLikesCount[index] = currLikes;
           return updatedLikesCount;
         });
       } else {
-        const currLikes = await unLikeStory(storyId, index);
         setLiked((prevLiked) => {
           const updatedLiked = [...prevLiked];
           updatedLiked[index] = false;
           return updatedLiked;
         });
+        const currLikes = await unLikeStory(storyId, index);
         setLikesCount((prevLikesCount) => {
           const updatedLikesCount = [...prevLikesCount];
           updatedLikesCount[index] = currLikes;
@@ -117,7 +117,8 @@ const StoryModal = ({ story, onClose, onLoginSuccess }) => {
         });
       }
     } catch (error) {
-      toast.error("Failed to toggle like!");
+      console.log(error);
+      toast.error("Failed to like!");
     }
   };
 
